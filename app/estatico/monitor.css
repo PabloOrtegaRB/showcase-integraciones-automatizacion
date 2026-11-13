@@ -1,0 +1,66 @@
+:root{--navy:#0a1f33;--navy2:#16395c;--teal:#0d8a7c;--teal2:#12a594;--soft:#e8f6f4;--amber:#fff6e8;--ink:#16222f;--muted:#566476;--line:#dde4ec;--bg:#f3f6f9}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+a{color:var(--teal)}
+.oculto{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.demo-aviso{margin:0;background:var(--amber);color:#6b4500;border-bottom:1px solid #f3dcb5;font-size:.84rem;text-align:center;padding:7px 16px}
+.contenedor{width:min(100% - 32px,1240px);margin-inline:auto}
+.cabecera{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:28px 0 46px}
+.cabecera h1{margin:0 0 4px;font-size:1.7rem}
+.cabecera p{margin:0;color:#cfe0ee}
+.indicadores{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin:-28px 0 18px}
+.indicador{background:#fff;border:1px solid var(--line);border-top:3px solid var(--teal2);border-radius:12px;padding:14px 16px}
+.indicador.alerta{border-top-color:#d92d20}
+.indicador span{display:block;color:var(--muted);font-size:.8rem;font-weight:600}
+.indicador b{display:block;font-size:1.6rem;margin-top:2px}
+.columnas{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+.columnas>*,.lateral{min-width:0}
+.tarjeta{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px}
+.tarjeta h2{margin:0 0 12px;font-size:1.05rem}
+.tarjeta-cab{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+.tarjeta-cab h2{margin:0}
+.filtro{font-size:.88rem;color:var(--muted);display:flex;gap:8px;align-items:center}
+select,input{font:inherit;border:1px solid #c8d2dd;border-radius:8px;padding:8px 10px;background:#fff;color:var(--ink)}
+.tabla-contenedor{overflow-x:auto;position:relative} /* relative: contiene la etiqueta oculta absoluta dentro del desplazamiento */
+.tabla{width:100%;border-collapse:collapse;font-size:.92rem}
+.tabla th{text-align:left;font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tabla td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tabla code{font:600 .82rem Consolas,monospace;background:var(--bg);padding:2px 6px;border-radius:5px;white-space:nowrap}
+.estado{display:inline-block;font-size:.74rem;font-weight:700;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.e-PENDIENTE{background:#f2f4f7;color:#475467}.e-ENVIADA{background:#eff8ff;color:#175cd3}.e-ASIGNADA{background:var(--amber);color:#8a5300}
+.e-COMPLETADA{background:#ecfdf3;color:#067647}.e-ERROR_INTEGRACION{background:#fef3f2;color:#b42318}
+.boton-mini{font:inherit;font-size:.82rem;font-weight:700;padding:5px 10px;border-radius:8px;border:1px solid #f4c7c3;background:#fff;color:#b42318;cursor:pointer;white-space:nowrap}
+.tabla td:last-child,.tabla th:last-child{padding-right:2px;text-align:right}
+form label{display:flex;flex-direction:column;gap:4px;font-weight:600;font-size:.9rem;margin-bottom:10px}
+form button{font:inherit;font-weight:700;background:var(--teal);color:#fff;border:0;border-radius:10px;padding:10px 16px;cursor:pointer;width:100%}
+form button:hover{background:#0b7a6e}
+.ayuda{color:var(--muted);font-size:.82rem;margin:8px 0 0}
+.mensaje{font-size:.88rem;margin:8px 0 0;min-height:1.2em}
+.mensaje.error{color:#b42318}.mensaje.ok{color:#067647}
+.eventos{list-style:none;margin:0;padding:0;max-height:430px;overflow:auto}
+.eventos li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;padding:8px 0;border-top:1px solid var(--line);font-size:.86rem}
+.eventos li span:not(.tipo){overflow-wrap:anywhere}
+.eventos li:first-child{border-top:0}
+.eventos .tipo{font-weight:700;font-size:.72rem;padding:2px 7px;border-radius:6px;background:var(--soft);color:var(--teal);height:fit-content;white-space:nowrap}
+.eventos .tipo.malo{background:#fef3f2;color:#b42318}.eventos .tipo.aviso{background:var(--amber);color:#8a5300}
+.eventos small{color:var(--muted);grid-column:2}
+.vacio{color:var(--muted);text-align:center;padding:16px}
+.pie{text-align:center;color:var(--muted);font-size:.85rem;padding:8px 0 26px}
+@media (max-width:1100px){.indicadores{grid-template-columns:repeat(3,minmax(0,1fr))}.columnas{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:600px){
+  .indicadores{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tarjeta-cab{flex-direction:column;align-items:flex-start}
+  /* En pantallas angostas cada orden se muestra como una ficha apilada, sin desplazamiento horizontal */
+  .tabla thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .tabla,.tabla tbody{display:block}
+  .tabla tr{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .tabla td{display:block;border:0;padding:0}
+  .tabla td:nth-child(2){flex:1 1 0;min-width:0;font-weight:600}
+  .tabla td:nth-child(3){flex-basis:100%;color:var(--muted);font-size:.86rem}
+  .tabla td:nth-child(5),.tabla td:nth-child(6){color:var(--muted);font-size:.86rem}
+  .tabla td:nth-child(5)::before{content:"Intentos: "}
+  .tabla td:nth-child(6)::before{content:"Ref.: "}
+  .tabla td:last-child{margin-left:auto;padding:0}
+  .tabla td:last-child:empty{display:none}
+  .tabla td.vacio{flex-basis:100%}
+}

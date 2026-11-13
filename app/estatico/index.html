@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monitor de integraciones · Valdora (demostrativo)</title>
+  <link rel="stylesheet" href="/estatico/monitor.css">
+  <script src="/estatico/monitor.js" defer></script>
+</head>
+<body>
+  <p class="demo-aviso"><strong>Proyecto demostrativo — desarrollo propio, no asociado a un cliente real.</strong> El proveedor externo es una simulación y los datos son ficticios.</p>
+  <header class="cabecera">
+    <div class="contenedor">
+      <h1>Monitor de integraciones</h1>
+      <p>Órdenes de trabajo enviadas a un proveedor externo con reintentos controlados y avisos firmados (webhooks).</p>
+    </div>
+  </header>
+  <main class="contenedor" id="contenido">
+    <section class="indicadores" aria-label="Indicadores">
+      <article class="indicador"><span>Órdenes</span><b id="kpi-total">—</b></article>
+      <article class="indicador"><span>Entregadas al proveedor</span><b id="kpi-entregadas">—</b></article>
+      <article class="indicador"><span>Completadas en terreno</span><b id="kpi-completadas">—</b></article>
+      <article class="indicador alerta"><span>Con error de integración</span><b id="kpi-error">—</b></article>
+      <article class="indicador"><span>Fallas transitorias reintentadas</span><b id="kpi-reintentos">—</b></article>
+      <article class="indicador"><span>Promedio de intentos</span><b id="kpi-intentos">—</b></article>
+    </section>
+
+    <div class="columnas">
+      <section class="tarjeta" aria-labelledby="titulo-ordenes">
+        <div class="tarjeta-cab">
+          <h2 id="titulo-ordenes">Órdenes de trabajo</h2>
+          <label class="filtro">Estado
+            <select id="filtro-estado">
+              <option value="">Todos</option>
+              <option value="PENDIENTE">Pendiente</option>
+              <option value="ENVIADA">Enviada</option>
+              <option value="ASIGNADA">Asignada</option>
+              <option value="COMPLETADA">Completada</option>
+              <option value="ERROR_INTEGRACION">Error de integración</option>
+            </select>
+          </label>
+        </div>
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead><tr><th scope="col">Orden</th><th scope="col">Cliente</th><th scope="col">Servicio</th><th scope="col">Estado</th><th scope="col">Intentos</th><th scope="col">Ref. proveedor</th><th scope="col"><span class="oculto">Acciones</span></th></tr></thead>
+            <tbody id="tabla-ordenes"><tr><td colspan="7" class="vacio">Cargando…</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="lateral">
+        <section class="tarjeta" aria-labelledby="titulo-nueva">
+          <h2 id="titulo-nueva">Crear orden de prueba</h2>
+          <form id="form-orden" novalidate>
+            <label>Cliente <input name="cliente" required minlength="3" maxlength="120" value="Bodegas Arrayán Sur SpA"></label>
+            <label>Dirección <input name="direccion" required minlength="5" maxlength="200" value="Av. Ejemplo 1234, Santiago"></label>
+            <label>Servicio
+              <select name="servicio">
+                <option value="MANTENCION_PREVENTIVA">Mantención preventiva</option>
+                <option value="MANTENCION_CORRECTIVA">Mantención correctiva</option>
+                <option value="CLIMATIZACION">Climatización</option>
+                <option value="ELECTRICIDAD">Electricidad</option>
+                <option value="INSPECCION">Inspección</option>
+              </select>
+            </label>
+            <label>Prioridad
+              <select name="prioridad"><option>BAJA</option><option selected>MEDIA</option><option>ALTA</option><option>CRITICA</option></select>
+            </label>
+            <button type="submit">Crear y enviar</button>
+            <p class="ayuda">Escribe «Sin cobertura» en la dirección para ver un rechazo permanente del proveedor.</p>
+            <p id="mensaje-form" class="mensaje" role="status"></p>
+          </form>
+        </section>
+        <section class="tarjeta" aria-labelledby="titulo-eventos">
+          <h2 id="titulo-eventos">Registro de eventos</h2>
+          <ol id="lista-eventos" class="eventos"><li class="vacio">Cargando…</li></ol>
+        </section>
+      </div>
+    </div>
+  </main>
+  <footer class="pie">Se actualiza cada 2 segundos · API documentada en <a href="/docs">/docs</a></footer>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# API principal + proveedor simulado. Copia .env.example a .env antes de usarlo.
+# Nota: este archivo no se ejecutó en el entorno donde se verificó el proyecto.
+services:
+  proveedor:
+    build: .
+    command: ["uvicorn", "--factory", "proveedor_simulado.main:crear_proveedor", "--host", "0.0.0.0", "--port", "8202"]
+    environment:
+      SECRETO_WEBHOOK: ${SECRETO_WEBHOOK:?Define SECRETO_WEBHOOK en .env}
+      TASA_FALLO: ${TASA_FALLO:-0.3}
+    ports:
+      - "8202:8202"
+
+  api:
+    build: .
+    depends_on:
+      - proveedor
+    environment:
+      SECRETO_WEBHOOK: ${SECRETO_WEBHOOK}
+      URL_PROVEEDOR: http://proveedor:8202
+      URL_WEBHOOK: http://api:8201/webhooks/proveedor
+      RUTA_BD: /tmp/integraciones.db
+    ports:
+      - "8201:8201"
